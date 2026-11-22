@@ -66,7 +66,7 @@ function render({fit=false}={}){
  $('#area-source').href=window.YU_DATA.areaSource;
  $('#explorer').classList.toggle('map-mode-hidden',state.layout==='list');
  for(const view of ['map','list']){const button=$(`#${view}-view`);button.classList.toggle('selected',state.layout===view);button.setAttribute('aria-pressed',String(state.layout===view));}
- if(mapReady){drawMap();if(fit)fitMap();if(state.layout==='map')requestAnimationFrame(()=>map.invalidateSize());}
+ if(mapReady){if(state.layout==='map')requestAnimationFrame(()=>{map.invalidateSize({pan:false});if(fit)fitMap();else drawMap()});else drawMap();}
  drawDiagram();syncUrl();
 }
 function applyLanguage(){
@@ -134,7 +134,7 @@ function initMap(){
  layer=L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a>',maxZoom:19});
  layer.on('tileload',()=>{tilesLoaded=true;clearTimeout(mapTimer)});
  layer.addTo(map);markerLayer=L.layerGroup().addTo(map);mapReady=true;
- map.on('moveend zoomend',drawMap);fitMap();drawMap();
+ map.on('moveend zoomend',drawMap);map.on('resize',()=>{if(state.layout==='map')fitMap()});fitMap();drawMap();
  mapTimer=setTimeout(()=>{if(!tilesLoaded)setDiagram(true)},6500);
  $('#map-fallback').hidden=true;
 }
@@ -164,7 +164,7 @@ for(const key of ['type','budget'])$(`#${key}`).addEventListener('change',e=>{st
 $('#language').addEventListener('change',e=>{lang=e.target.value;storage.set('yu-language',lang);applyLanguage();renderCollections()});
 $('#favorites').addEventListener('click',()=>{state.saved=!state.saved;render({fit:true});$('#explore').scrollIntoView({behavior:'smooth'})});
 $('#reset').addEventListener('click',reset);$('#empty-reset').addEventListener('click',reset);
-for(const view of ['list','map'])$(`#${view}-view`).addEventListener('click',()=>{state.layout=view;render()});
+for(const view of ['list','map'])$(`#${view}-view`).addEventListener('click',()=>{state.layout=view;render({fit:view==='map'})});
 $('#map-reset').addEventListener('click',()=>{state.area='all';$('#area').value='all';render({fit:true})});
 $('#schematic-toggle').addEventListener('click',()=>setDiagram(!diagram));
 $('#method-link').addEventListener('click',()=>showContext({kind:'method'}));
