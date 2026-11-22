@@ -1,0 +1,9 @@
+node_modules/
+*.log
+.DS_Store
+Thumbs.db
+.env
+.env.*
+PROJECT_SPEC.md
+preview.html
+dist/assets/spring-hero.png

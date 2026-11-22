@@ -1,0 +1,13 @@
+import {readFile,writeFile} from 'node:fs/promises';
+const root=new URL('../dist/',import.meta.url);
+let html=await readFile(new URL('index.html',root),'utf8');
+let css=await readFile(new URL('styles.css',root),'utf8');
+const image='data:image/webp;base64,'+(await readFile(new URL('assets/spring-hero.webp',root))).toString('base64');
+css=css.replaceAll('/assets/spring-hero.webp',image);
+html=html.replace(/<link rel="icon"[^>]*>/,'').replace(/<link rel="stylesheet"[^>]*>/g,'');
+html=html.replace(/<script defer[^>]*><\/script>/g,'');
+html=html.replace('</head>',()=>`<style>${css}</style></head>`);
+const code=(await Promise.all(['data.js','photos.js','i18n.js','app.js'].map(name=>readFile(new URL(name,root),'utf8')))).join('\n');
+html=html.replace('</body>',()=>`<script>window.YU_PREVIEW=true;\n${code.replace(/<\/script/gi,'<\\/script')}</script></body>`);
+await writeFile(new URL('../preview.html',import.meta.url),html);
+console.log('Created standalone preview.html (offline area diagram; no server required).');

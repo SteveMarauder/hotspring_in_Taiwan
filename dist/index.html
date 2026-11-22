@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#153f35">
+  <meta name="yu-base" content="/">
+  <meta name="description" content="湯旅：用繁體中文、英文、日文、韓文探索台灣溫泉地圖，查看飯店官網、泡湯價格與旅遊指南。">
+  <title>湯旅 YU ATLAS｜台灣溫泉地圖</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="stylesheet" href="/assets/leaflet.css"><link rel="stylesheet" href="/styles.css">
+  <script defer src="/assets/leaflet.js"></script><script defer src="/data.js"></script><script defer src="/photos.js"></script><script defer src="/i18n.js"></script><script defer src="/app.js"></script>
+</head>
+<body>
+  <a class="skip" href="#explore" data-t="skip"></a>
+  <header class="header"><div class="header-inner">
+    <a class="brand" href="#" aria-label="YU ATLAS"><span class="brand-icon" aria-hidden="true">♨</span><span><strong>湯旅<span class="brand-latin">YU ATLAS</span></strong><small>TAIWAN HOT SPRING GUIDE</small></span></a>
+    <nav aria-label="Main"><a href="#explore" class="current" data-t="explore"></a><a href="#collections" data-t="collections"></a><button data-guide="guide" data-t="guide"></button></nav>
+    <div class="header-actions"><button id="favorites" class="quiet" aria-pressed="false"><span data-icon="heart"></span><span data-t="saved"></span><span id="saved-count">0</span></button><span class="divider"></span><label class="language"><span data-icon="globe"></span><select id="language" aria-label="Language"><option value="zh-TW">繁體中文</option><option value="en">English</option><option value="ja">日本語</option><option value="ko">한국어</option></select></label></div>
+  </div></header>
+  <main>
+    <section class="hero" aria-labelledby="hero-title"><div class="hero-shade"></div><div class="hero-inner">
+      <div class="eyebrow">A LITTLE WARMTH. A WHOLE NEW TAIWAN.</div>
+      <h1 id="hero-title" data-t="hero"></h1><p class="hero-sub" data-t="heroSub"></p>
+      <div class="hero-facts"><span><b>19</b> <span data-t="areas"></span></span><i></i><span><b>12</b> <span data-t="places"></span></span><i></i><span><b>4</b> <span data-t="languages"></span></span></div>
+      <div class="hero-caption"><span class="caption-line"></span><span data-t="heroCaption"></span><small data-t="aiImage"></small></div>
+    </div></section>
+    <div class="page-content">
+      <form class="search-bar" id="search-form" role="search"><label class="search-field"><span data-icon="search"></span><input id="search" type="search" autocomplete="off" data-placeholder="searchPlaceholder" aria-label="Search"></label><div class="search-separator"></div><label class="select-field"><span data-icon="pin"></span><select id="area" aria-label="Hot spring area"></select></label><button class="primary" type="submit" data-t="find"></button></form>
+      <section id="explore" class="explore-section" aria-labelledby="explore-title">
+        <div class="section-heading"><div><p class="eyebrow green">FIND YOUR WARM ESCAPE</p><h2 id="explore-title" data-t="exploreTitle"></h2></div><div class="small-note"><span class="leaf-dot"></span><span data-t="curated"></span><button id="method-link" class="inline-link" data-t="aboutData"></button></div></div>
+        <div class="filter-toolbar"><div id="regions" class="region-tabs" role="group" aria-label="Regions"></div><div class="filter-controls"><label class="compact-select"><span data-icon="bath"></span><select id="type" aria-label="Experience type"></select></label><label class="compact-select"><span data-icon="wallet"></span><select id="budget" aria-label="Budget"></select></label></div></div>
+        <div class="active-row"><div><span id="result-count" aria-live="polite"></span><span id="active-area" class="active-area"></span><button id="reset" class="inline-link" data-t="reset" hidden></button></div><div class="view-switch"><button id="list-view" aria-pressed="false"><span data-icon="list"></span><span data-t="list"></span></button><button id="map-view" class="selected" aria-pressed="true"><span data-icon="map"></span><span data-t="map"></span></button></div></div>
+        <div class="explorer" id="explorer"><div class="results"><div class="cards" id="cards"></div><div id="empty" class="empty" hidden><span class="empty-icon">♨</span><h3 data-t="emptyTitle"></h3><p data-t="emptyText"></p><button class="primary" id="empty-reset" data-t="reset"></button><a id="area-source" target="_blank" rel="noopener noreferrer" data-t="areaSource"></a></div><p class="list-footnote"><span data-icon="info"></span><span data-t="priceNote"></span></p></div>
+          <aside class="map-panel" aria-label="Taiwan hot spring map"><div class="map-header"><span data-icon="map"></span><strong data-t="mapTitle"></strong><button id="map-reset" class="icon-button" data-icon="expand" aria-label="Reset map"></button></div><div id="map"><div id="map-fallback"></div></div><button id="schematic-toggle" class="map-style" data-t="schematic"></button><div class="map-bottom"><span class="map-key"><i></i><span data-t="areaPins"></span></span><span data-t="mapHint"></span></div></aside>
+        </div>
+      </section>
+      <section id="collections" class="collections-section"><div class="section-heading"><div><p class="eyebrow green">A TRIP THAT FEELS LIKE YOU</p><h2 data-t="collectionTitle"></h2></div><button class="inline-link" data-guide="method" data-t="rankingMethod"></button></div><div class="collection-grid" id="collection-grid"></div></section>
+      <section class="guide-banner"><span class="guide-symbol" aria-hidden="true">♨</span><div><p class="eyebrow" data-t="beforeYouGo"></p><h2 data-t="guideTitle"></h2><p data-t="guideSub"></p></div><button class="light-button" data-guide="guide" data-t="readGuide"></button></section>
+      <div class="prototype-note"><span data-icon="info"></span><p data-t="prototype"></p></div>
+    </div>
+  </main>
+  <footer><a class="brand" href="#"><span class="brand-icon" aria-hidden="true">♨</span><span><strong>湯旅<span class="brand-latin">YU ATLAS</span></strong><small>A WARMER WAY TO EXPLORE TAIWAN.</small></span></a><div><button data-guide="method" data-t="aboutData"></button><span data-t="updated"></span></div></footer>
+  <dialog id="detail-dialog" aria-labelledby="dialog-title"><button id="dialog-close" class="dialog-close icon-button" data-icon="close" aria-label="Close"></button><div id="dialog-content"></div></dialog>
+  <div id="toast" role="status" class="toast" hidden></div>
+</body>
+</html>
